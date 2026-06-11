@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strings of Memory · Resonance — Language, Humanity & Cello</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Noto Sans SC',system-ui,sans-serif;background:#0F0E0C;color:#E8E0D4;line-height:1.6;min-height:100vh}
+:root{
+  --ink:#0F0E0C;--ink2:#1A1916;--ink3:#252320;
+  --paper:#E8E0D4;--paper2:#C8BFB0;--paper3:#A89F92;
+  --gold:#C9930A;--gold-lt:#F5E6C0;
+  --coral:#993C1D;--purple:#534AB7;--teal:#0F6E56;--amber:#854F0B;
+  --rule:rgba(232,224,212,.12);--rule2:rgba(232,224,212,.06)
+}
+
+.topbar{background:var(--ink);border-bottom:1px solid var(--rule);padding:.65rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.topbar-logo{font-family:'Crimson Pro',serif;font-size:15px;font-weight:400;letter-spacing:.04em;color:var(--paper2);font-style:italic}
+.topbar-right{display:flex;align-items:center;gap:1.25rem}
+.topbar-tag{font-size:11px;color:var(--paper3);letter-spacing:.08em;text-transform:uppercase}
+.topbar-addr{font-size:11px;color:var(--paper3);opacity:.55}
+
+/* Hero */
+.hero{min-height:94vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:5rem 2rem 4rem;position:relative;overflow:hidden;border-bottom:1px solid var(--rule)}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 55% at 50% 40%,rgba(201,147,10,.07) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;opacity:.85}
+.hero-pretitle{font-family:'Crimson Pro',serif;font-size:clamp(13px,2vw,16px);font-weight:300;font-style:italic;letter-spacing:.12em;color:var(--paper3);text-transform:uppercase;margin-bottom:.6rem}
+.hero-title{font-family:'Crimson Pro',serif;font-size:clamp(50px,10vw,92px);font-weight:300;line-height:1.0;color:var(--paper);letter-spacing:-.01em;margin-bottom:.5rem}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-tagline{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--paper3);margin-bottom:2rem;opacity:.6}
+.hero-divider{width:40px;height:1px;background:var(--gold);margin:0 auto 2rem;opacity:.45}
+.hero-pitch{font-family:'Crimson Pro',serif;font-size:clamp(17px,2.8vw,23px);font-weight:300;font-style:italic;color:var(--paper2);max-width:620px;margin:0 auto 1rem;line-height:1.65}
+.hero-pitch2{font-size:13px;color:var(--paper3);max-width:500px;margin:0 auto 3rem;line-height:1.75;letter-spacing:.01em}
+.hero-divider2{width:40px;height:1px;background:var(--rule);margin:0 auto 2.5rem}
+.hero-quote{font-family:'Crimson Pro',serif;font-size:clamp(14px,2vw,17px);font-style:italic;color:var(--paper3);max-width:420px;margin:0 auto;line-height:1.75;opacity:.75}
+.hero-quote cite{display:block;font-style:normal;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--paper3);opacity:.5;margin-top:.6rem}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-size:10px;color:var(--paper3);opacity:.35;letter-spacing:.12em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.hero-scroll::after{content:'';width:1px;height:28px;background:var(--paper3);opacity:.3}
+
+/* Three pillars */
+.pillars{background:var(--ink2);border-bottom:1px solid var(--rule);padding:2.5rem 2rem}
+.pillars-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+@media(max-width:600px){.pillars-inner{grid-template-columns:1fr}}
+.pillar{padding:1.25rem 1.5rem;border-right:1px solid var(--rule)}
+.pillar:last-child{border-right:none}
+.pillar-icon{font-size:20px;margin-bottom:.6rem;opacity:.65}
+.pillar-title{font-family:'Crimson Pro',serif;font-size:17px;font-weight:400;font-style:italic;color:var(--paper);margin-bottom:.4rem}
+.pillar-body{font-size:12px;color:var(--paper3);line-height:1.7}
+
+/* Stats */
+.stats{background:var(--ink);border-bottom:1px solid var(--rule);padding:2rem 2rem}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+@media(max-width:600px){.stats-inner{grid-template-columns:repeat(2,1fr)}}
+.stat{text-align:center;padding:1rem;border-right:1px solid var(--rule)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Crimson Pro',serif;font-size:38px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:.3rem}
+.stat-l{font-size:11px;color:var(--paper3);letter-spacing:.05em;line-height:1.5}
+
+/* Main */
+.main{max-width:960px;margin:0 auto;padding:4rem 1.5rem 6rem}
+
+/* Format strip */
+.format-strip{background:var(--ink2);border:1px solid var(--rule);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:3.5rem;display:flex;flex-wrap:wrap;gap:.75rem 2rem;align-items:center}
+.format-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--paper3);opacity:.55;min-width:100%}
+.format-step{display:flex;align-items:center;gap:.5rem;font-size:13px;color:var(--paper2)}
+.format-step-icon{font-size:15px;opacity:.55}
+.format-sep{color:var(--paper3);opacity:.2;font-size:16px}
+
+/* Theme block */
+.theme-block{margin-bottom:4rem}
+.theme-header{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.75rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.theme-num{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--paper3);min-width:4.5rem;opacity:.55}
+.theme-name{font-family:'Crimson Pro',serif;font-size:clamp(20px,3.5vw,27px);font-weight:300;font-style:italic}
+.theme-desc{font-size:12px;color:var(--paper3);margin-left:auto;max-width:280px;text-align:right;line-height:1.5}
+@media(max-width:600px){.theme-desc{display:none}}
+
+/* Session cards */
+.session-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule2);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+@media(max-width:640px){.session-row{grid-template-columns:1fr}}
+.session-card{background:var(--ink2);padding:1.4rem;display:flex;flex-direction:column;gap:.6rem;transition:background .2s}
+.sc-num{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;opacity:.4}
+.sc-title{font-family:'Crimson Pro',serif;font-size:16px;font-weight:400;line-height:1.3;color:var(--paper)}
+.sc-period{font-size:11px;color:var(--paper3);opacity:.5;letter-spacing:.03em}
+.sc-divider{height:1px;background:var(--rule);margin:.15rem 0}
+.sc-cello{font-size:12px;color:var(--gold);line-height:1.45;display:flex;gap:.4rem}
+.sc-cello-icon{opacity:.55;flex-shrink:0;margin-top:.05rem}
+.sc-book{font-size:12px;color:var(--paper3);line-height:1.45;display:flex;gap:.4rem}
+.sc-book-icon{opacity:.4;flex-shrink:0;margin-top:.05rem}
+.sc-vocab{font-size:11px;color:var(--paper3);opacity:.45;line-height:1.5;margin-top:.2rem;font-style:italic}
+.sc-question{font-size:11px;color:var(--paper3);opacity:.55;line-height:1.55;margin-top:.2rem;border-left:2px solid var(--rule);padding-left:.6rem;font-style:italic}
+.sc-soon{display:inline-block;font-size:10px;letter-spacing:.07em;text-transform:uppercase;background:rgba(232,224,212,.05);color:var(--paper3);padding:.18rem .55rem;border-radius:20px;border:1px solid var(--rule);margin-top:.3rem;opacity:.6}
+
+/* Theme left-border colours */
+.t1 .session-card{border-left:2px solid #993C1D}
+.t2 .session-card{border-left:2px solid #534AB7}
+.t3 .session-card{border-left:2px solid #0F6E56}
+.t4 .session-card{border-left:2px solid #C9930A}
+.t1 .theme-name{color:#F0997B}
+.t2 .theme-name{color:#AFA9EC}
+.t3 .theme-name{color:#5DCAA5}
+.t4 .theme-name{color:#EF9F27}
+.t1 .sc-num{color:#F0997B}
+.t2 .sc-num{color:#AFA9EC}
+.t3 .sc-num{color:#5DCAA5}
+.t4 .sc-num{color:#EF9F27}
+
+/* Why cello */
+.cello-section{background:var(--ink2);border:1px solid var(--rule);border-radius:16px;padding:2.5rem;margin:3.5rem 0;display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:start}
+@media(max-width:640px){.cello-section{grid-template-columns:1fr}}
+.cello-glyph{font-size:64px;line-height:1;opacity:.45;padding-top:.25rem}
+.cello-title{font-family:'Crimson Pro',serif;font-size:21px;font-weight:300;font-style:italic;color:var(--paper);margin-bottom:.85rem}
+.cello-body{font-size:13px;color:var(--paper3);line-height:1.85}
+.cello-body p+p{margin-top:.8rem}
+.cello-body strong{color:var(--paper2);font-weight:500}
+
+/* Language track */
+.lang-section{border:1px solid var(--rule);border-radius:16px;padding:2rem;margin:3.5rem 0}
+.lang-title{font-family:'Crimson Pro',serif;font-size:21px;font-weight:300;font-style:italic;color:var(--paper);margin-bottom:1rem}
+.lang-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.lang-item{padding:1rem;background:var(--ink2);border-radius:10px;border:1px solid var(--rule)}
+.lang-item-title{font-size:12px;font-weight:600;color:var(--paper2);margin-bottom:.3rem;letter-spacing:.04em}
+.lang-item-body{font-size:12px;color:var(--paper3);line-height:1.65}
+
+/* Info strip */
+.info-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:3.5rem 0}
+.info-card{padding:1.25rem;background:var(--ink2);border:1px solid var(--rule);border-radius:12px}
+.info-card-title{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--paper3);opacity:.55;margin-bottom:.5rem}
+.info-card-body{font-size:13px;color:var(--paper2);line-height:1.65}
+
+/* Footer */
+.footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--rule);font-size:12px;color:var(--paper3);line-height:2;opacity:.6}
+.footer strong{color:var(--paper2);opacity:1;font-weight:500}
+.footer-cn{font-size:12px;color:var(--paper3);opacity:.5;margin-top:.25rem}
+
+@media(max-width:600px){
+  .main{padding:2.5rem 1rem 4rem}
+  .theme-block{margin-bottom:3rem}
+  .cello-section,.lang-section{padding:1.5rem}
+  .pillar{border-right:none;border-bottom:1px solid var(--rule)}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-logo">Strings of Memory · Resonance</span>
+  <div class="topbar-right">
+    <span class="topbar-tag">Language · Humanity · Cello</span>
+    <span class="topbar-addr" style="display:none" id="addr">19011209513</span>
+  </div>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-eyebrow">Lexilink Ideation · LLI IELTS Studio</div>
+  <div class="hero-pretitle">Strings of Memory</div>
+  <div class="hero-title">Reso<em>nance</em></div>
+  <div class="hero-tagline">Language &nbsp;·&nbsp; Humanity &nbsp;·&nbsp; Cello</div>
+  <div class="hero-divider"></div>
+  <div class="hero-pitch">A twelve-session course weaving English language learning with transitional justice and the music of bearing witness.</div>
+  <div class="hero-pitch2">Each session pairs a chapter of history with a cello work and a piece of literature — building English skills through testimony, vocabulary through real events, and writing through the most essential human question: how do we speak about what happened?</div>
+  <div class="hero-divider2"></div>
+  <div class="hero-quote">
+    "When words fall short, music remembers."
+    <cite>— Strings of Memory</cite>
+  </div>
+  <div class="hero-scroll">scroll</div>
+</div>
+
+<!-- Three pillars -->
+<div class="pillars">
+  <div class="pillars-inner">
+    <div class="pillar">
+      <div class="pillar-icon">📖</div>
+      <div class="pillar-title">Language</div>
+      <div class="pillar-body">All sessions in English. Vocabulary and writing skills built through real historical texts, survivor testimony, and literature. All levels welcome — interpreter available.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">𝄞</div>
+      <div class="pillar-title">Cello</div>
+      <div class="pillar-body">Each session features 3–4 live cello pieces — chosen to mirror the emotional terrain of that history. The cello is the instrument closest to the human voice. Music as testimony.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">⚖️</div>
+      <div class="pillar-title">Humanity</div>
+      <div class="pillar-body">Twelve case studies in transitional justice — genocide, racial oppression, silenced voices, and the hard paths toward accountability — explored with rigour and empathy.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-n">12</div><div class="stat-l">Sessions<br>across 4 themes</div></div>
+    <div class="stat"><div class="stat-n">12</div><div class="stat-l">Cello works<br>3–4 per session</div></div>
+    <div class="stat"><div class="stat-n">12</div><div class="stat-l">Texts &amp; testimonies<br>from 10+ countries</div></div>
+    <div class="stat"><div class="stat-n">3h</div><div class="stat-l">Per session<br>120–180 min · tea break</div></div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- Session format -->
+  <div class="format-strip">
+    <div class="format-label">Each session follows this structure</div>
+    <span class="format-step"><span class="format-step-icon">♩</span> Opening cello</span>
+    <span class="format-sep">→</span>
+    <span class="format-step"><span class="format-step-icon">◧</span> Poem or reading</span>
+    <span class="format-sep">→</span>
+    <span class="format-step"><span class="format-step-icon">📋</span> History &amp; language</span>
+    <span class="format-sep">→</span>
+    <span class="format-step"><span class="format-step-icon">♫</span> Cello response</span>
+    <span class="format-sep">→</span>
+    <span class="format-step"><span class="format-step-icon">⊙</span> Discussion</span>
+    <span class="format-sep">→</span>
+    <span class="format-step"><span class="format-step-icon">𝄐</span> Closing cello</span>
+  </div>
+
+  <!-- Theme 1 -->
+  <div class="theme-block t1">
+    <div class="theme-header">
+      <span class="theme-num">Theme 1</span>
+      <span class="theme-name">Systematic erasure</span>
+      <span class="theme-desc">How genocide is built through law, language, and the silence of bystanders.</span>
+    </div>
+    <div class="session-row">
+      <div class="session-card">
+        <div class="sc-num">Session 1</div>
+        <div class="sc-title">The Holocaust</div>
+        <div class="sc-period">Germany &amp; Occupied Europe · 1933–1945</div>
+        <div class="sc-divider"></div>
+        <div class="sc-cello"><span class="sc-cello-icon">♩</span>Kol Nidrei — Bruch &amp; Schindler's List — Williams</div>
+        <div class="sc-book"><span class="sc-book-icon">◧</span>Night — Elie Wiesel &nbsp;·&nbsp; "Shema" — Primo Levi</div>
+        <div class="sc-vocab">genocide · testimony · euphemism · accountability</div>
+        <div class="sc-question">"The opposite of love is not hate — it is indifference." — Wiesel</div>
+        <div class="sc-soon">Coming soon</div>
+      </div>
+      <div class="session-card">
+        <div class="sc-num">Session 2</div>
+        <div class="sc-title">The Armenian Genocide</div>
+        <div class="sc-period">Ottoman Empire · 1915–1917</div>
+        <div class="sc-divider"></div>
+        <div class="sc-cello"><span class="sc-cello-icon">♩</span>Dle Yaman &amp; Krounk (The Crane) — Komitas</div>
+        <div class="sc-book"><span class="sc-book-icon">◧</span>The Forty Days of Musa Dagh — Werfel</div>
+        <div class="sc-vocab">deportation · denial · diaspora · recognition</div>
+        <div class="sc-question">Why target intellectuals, musicians, and clergy first?</div>
+        <div class="sc-soon">Coming soon</div>
+      </div>
+      <div class="session-card">
+        <div class="sc-num">Session 3</div>
+        <div class="sc-title">The Cambodian Genocide</div>
+        <div class="sc-period">Cambodia · 1975–1979</div>
+        <div class="sc-divider"></div>
+        <div class="sc-cello"><span class="sc-cello-icon">♩</span>Libertango — Piazzolla &nbsp;·&nbsp; Elegy — Fauré</div>
+        <div class="sc-book"><span class="sc-book-icon">◧</span>First They Killed My Father — Loung Ung</div>
+        <div class="sc-vocab">ideology · impunity · tribunal · survivor</div>
+        <div class="sc-question">What is a society without its educated class?</div>
+        <div class="sc-soon">Coming soon</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme 2 -->
+  <div class="theme-block t2">
+    <div class="theme-header">
+      <span class="theme-num">Theme 2</span>
+      <span class="theme-name">Racial domination</span>
+      <span class="theme-desc">When inequality is embedded in the architecture of a state — and how people resist it.</span>
+    </div>
+    <div class="session-row">
+      <div class="session-card">
+        <div class="sc-num">Session 4</div>
+        <div class="sc-title">South Africa — Apartheid</div>
+        <div class="sc-period">South Africa · 1948–1994</div>
+        <div class="sc-divider"></div>
+        <div class="sc-cello"><span class="sc-cello-icon">♩</span>African Lullaby &amp; Nkosi Sikelel' iAfrika — arr. cello</div>
+        <div class="sc-book"><span class="sc-book-icon">◧</span>Long Walk to Freedom — Nelson Mandela</div>
+        <div class="sc-vocab">apartheid · dignity · reconciliation · amnesty</div>
+        <div class="sc-question">Is forgiveness possible after systematic oppression?</div>
+        <div class="sc-soon">Coming soon</div>
+      </div>
+      <div class="session-card">
+        <div class="sc-num">Session 5</div>
+        <div class="sc-title">Jim Crow &amp; US Segregation</div>
+        <div class="sc-period">United States · 1877–1964</div>
+        <div class="sc-divider"></div>
+        <div class="sc-cello"><span class="sc-cello-icon">♩</span>Deep River &amp; Wade in the Water — arr. cello</div>
+        <div class="sc-book"><span class="sc-book-icon">◧</span>I Know Why the Caged Bird Sings — Maya Angelou</div>
+        <div class="sc-vocab">segregation · civil rights · redress · structural racism</div>
+        <div class="sc-question">How does music carry resistance when direct speech is dangerous?</div>
+        <div class="sc-soon">Coming soon</div>
+      </div>
+      <div class="session-card">
+        <div class="sc-num">Session 6</div>
+        <div class="sc-title">The Rwandan Genocide</div>
+        <div class="sc-period">Rwanda · April–July 1994</div>
+        <div class="sc-divider"></div>
+        <div class="sc-cello"><span class="sc-cello-icon">♩</span>Adagio for Strings — Barber &nbsp;·&nbsp; Lacrimosa — Mozart</div>
+        <div class="sc-book"><span class="sc-book-icon">◧</span>We Wish to Inform You… — Gourevitch</div>
+        <div class="sc-vocab">propaganda · bystander · gacaca · incitement</div>
+        <div class="sc-question">Who bears responsibility when bystanders have the power to act but do not?</div>
+        <div class="sc-soon">Coming soon</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme 3 -->
+  <div class="theme-block t3">
+    <div class="theme-header">
+      <span class="theme-num">Theme 3</span>
+      <span class="theme-name">Silenced voices</span>
+      <span class="theme-desc">The erasure of language, culture, and identity — and what survives.</span>
+    </div>
+    <div class="session-row">
+      <div class="session-card">
+        <div class="sc-num">Session 7</div>
+        <div class="sc-title">Canadian Residential Schools</div>
+        <div class="sc-period">Canada · 1880s–1996</div>
+        <div class="sc-divider"></div>
+        <div class="sc-cello"><span class="sc-cello-icon">♩</span>Lachrymae — Dowland/Britten &nbsp;·&nbsp; Cris Derksen</div>
+        <div class="sc-book"><span class="sc-book-icon">◧</span>Indian Horse — Richard Wagamese</div>
+        <div class="sc-vocab">assimilation · cultural genocide · intergenerational trauma</div>
+        <div class="sc-question">What is lost when a language dies?</div>
+        <div class="sc-soon">Coming soon</div>
+      </div>
+      <div class="session-card">
+        <div class="sc-num">Session 8</div>
+        <div class="sc-title">The Australian Stolen Generations</div>
+        <div class="sc-period">Australia · 1910–1970</div>
+        <div class="sc-divider"></div>
+        <div class="sc-cello"><span class="sc-cello-icon">♩</span>Yothu Yindi melody &nbsp;·&nbsp; Ancient Land — arr. cello</div>
+        <div class="sc-book"><span class="sc-book-icon">◧</span>Follow the Rabbit-Proof Fence — Doris Pilkington</div>
+        <div class="sc-vocab">apology · reparations · sovereignty · acknowledgment</div>
+        <div class="sc-question">What does an apology mean without action? When does 'sorry' become enough?</div>
+        <div class="sc-soon">Coming soon</div>
+      </div>
+      <div class="session-card">
+        <div class="sc-num">Session 9</div>
+        <div class="sc-title">Comfort Women — WWII</div>
+        <div class="sc-period">East Asia · 1932–1945</div>
+        <div class="sc-divider"></div>
+        <div class="sc-cello"><span class="sc-cello-icon">♩</span>Cello Concerto — Elgar &nbsp;·&nbsp; Pavane — Fauré</div>
+        <div class="sc-book"><span class="sc-book-icon">◧</span>The Surrendered — Chang-rae Lee</div>
+        <div class="sc-vocab">testimony · silence · redress · stigma · impunity</div>
+        <div class="sc-question">When society makes victims feel ashamed, who benefits?</div>
+        <div class="sc-soon">Coming soon</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme 4 -->
+  <div class="theme-block t4">
+    <div class="theme-header">
+      <span class="theme-num">Theme 4</span>
+      <span class="theme-name">Paths forward</span>
+      <span class="theme-desc">Truth commissions, reparations, memory — and the question of what it means to witness.</span>
+    </div>
+    <div class="session-row">
+      <div class="session-card">
+        <div class="sc-num">Session 10</div>
+        <div class="sc-title">Truth &amp; Reconciliation</div>
+        <div class="sc-period">South Africa · Canada · Rwanda · Colombia &amp; beyond</div>
+        <div class="sc-divider"></div>
+        <div class="sc-cello"><span class="sc-cello-icon">♩</span>Cello Concerto — Dvořák &nbsp;·&nbsp; Ubuntu melody</div>
+        <div class="sc-book"><span class="sc-book-icon">◧</span>No Future Without Forgiveness — Desmond Tutu</div>
+        <div class="sc-vocab">ubuntu · amnesty · accountability · transitional justice</div>
+        <div class="sc-question">Is it possible to have both truth and justice after mass atrocity?</div>
+        <div class="sc-soon">Coming soon</div>
+      </div>
+      <div class="session-card">
+        <div class="sc-num">Session 11</div>
+        <div class="sc-title">Reparations &amp; Memory</div>
+        <div class="sc-period">Germany · Japan · United States &amp; beyond</div>
+        <div class="sc-divider"></div>
+        <div class="sc-cello"><span class="sc-cello-icon">♩</span>Cello Concerto No. 1 — Shostakovich &nbsp;·&nbsp; Kaddish — Ravel</div>
+        <div class="sc-book"><span class="sc-book-icon">◧</span>The Book Thief — Zusak &nbsp;·&nbsp; "Still I Rise" — Angelou</div>
+        <div class="sc-vocab">reparations · restitution · complicity · commemoration</div>
+        <div class="sc-question">Should children feel responsibility for atrocities committed before they were born?</div>
+        <div class="sc-soon">Coming soon</div>
+      </div>
+      <div class="session-card">
+        <div class="sc-num">Session 12</div>
+        <div class="sc-title">Witness &amp; Hope — Closing</div>
+        <div class="sc-period">All locations · All times</div>
+        <div class="sc-divider"></div>
+        <div class="sc-cello"><span class="sc-cello-icon">♩</span>Cello Suite No. 1 — J.S. Bach · then silence</div>
+        <div class="sc-book"><span class="sc-book-icon">◧</span>"Still I Rise" — Maya Angelou · Participant readings</div>
+        <div class="sc-vocab">witness · resilience · legacy · responsibility · memory</div>
+        <div class="sc-question">What will you do differently because of what you have learned here?</div>
+        <div class="sc-soon">Coming soon</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Why the cello -->
+  <div class="cello-section">
+    <div class="cello-glyph">𝄞</div>
+    <div>
+      <div class="cello-title">Why the cello?</div>
+      <div class="cello-body">
+        <p>Of all instruments, the cello occupies the same register as the human voice. Its low resonance carries grief. Its singing upper strings carry hope. It does not shout — it speaks. And in speaking, it <strong>bears witness</strong>.</p>
+        <p>In each session, a cello work is chosen not as decoration but as <strong>emotional language</strong> — a way of approaching histories that resist easy words. Kol Nidrei. Barber's Adagio. Dvořák's concerto. Bach's unaccompanied suites. These are not illustrations. They are voices that say what testimony alone cannot.</p>
+        <p>Learning English through this music means learning to hear — and then to speak. The cello teaches us that <strong>what we feel can be expressed</strong>, even when we do not yet have the words. This course gives you the words.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Language track -->
+  <div class="lang-section">
+    <div class="lang-title">What you build in English</div>
+    <div class="lang-grid">
+      <div class="lang-item">
+        <div class="lang-item-title">Vocabulary in context</div>
+        <div class="lang-item-body">Each session introduces 6–8 words drawn directly from the history — genocide, testimony, reparations, ubuntu — learned not from a list but from the moment they mattered.</div>
+      </div>
+      <div class="lang-item">
+        <div class="lang-item-title">Reading real texts</div>
+        <div class="lang-item-body">Excerpts from Elie Wiesel, Maya Angelou, Nelson Mandela, Desmond Tutu. English as it is actually written by people who had something urgent to say.</div>
+      </div>
+      <div class="lang-item">
+        <div class="lang-item-title">Writing with purpose</div>
+        <div class="lang-item-body">Every session ends with a writing task — a paragraph responding to a real question. Not grammar exercises. Writing that asks you to think, take a position, and find your voice.</div>
+      </div>
+      <div class="lang-item">
+        <div class="lang-item-title">Speaking about difficult things</div>
+        <div class="lang-item-body">Discussion in English about history, justice, memory, and music. The hardest conversations are also the most useful practice — for language and for life.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Practical info -->
+  <div class="info-strip">
+    <div class="info-card">
+      <div class="info-card-title">Format</div>
+      <div class="info-card-body">120–180 min per session, with a tea break. Opening cello · Reading · History · Cello response · Discussion · Writing · Closing piece.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">Language level</div>
+      <div class="info-card-body">Open to all English levels. Interpreter available. No prior knowledge of history or music required.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">Sessions</div>
+      <div class="info-card-body">12 sessions across 4 themes. Each session stands alone — join from any point.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">Location</div>
+      <div class="info-card-body">钱塘航空大厦 1-2602<br>语意云雅思工作室<br>Tel: 19011209513</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>Strings of Memory · Resonance</strong><br>
+  Language · Humanity · Cello<br>
+  <span class="footer-cn">LLI IELTS Studio 语意云雅思工作室 · 琴弦上的语言系列讲座</span><br>
+  <span style="opacity:.4">Sessions will be published here as they become available</span>
+</div>
+
+</body>
+</html>
