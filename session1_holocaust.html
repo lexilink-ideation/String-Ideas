@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 1 · The Holocaust · Strings of Memory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ── TOKENS ─────────────────────────────────────────────────── */
+  :root {
+    --dark:    #1C1C1A;
+    --charcoal:#2A2A28;
+    --ink:     #3D3D3B;
+    --muted:   #6B6B68;
+    --rule:    #3A3A38;
+    --gold:    #B8973A;
+    --gold-lt: #D4AF62;
+    --cream:   #F5F0E8;
+    --off:     #FAFAF7;
+    --white:   #FFFFFF;
+    --red:     #B5381C;
+    --red-dk:  #8B2512;
+    --sage:    #4A7C59;
+
+    --ff-serif: Georgia, 'Times New Roman', serif;
+    --ff-sans:  'Segoe UI', system-ui, sans-serif;
+    --ff-mono:  'Courier New', monospace;
+
+    --radius: 6px;
+    --trans: 0.22s ease;
+  }
+
+  /* ── RESET & BASE ────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    background: var(--dark);
+    color: var(--cream);
+    font-family: var(--ff-sans);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--gold); color: var(--dark); }
+
+  /* ── NAV RAIL ────────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem;
+    height: 52px;
+    background: rgba(28,28,26,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-brand {
+    font-family: var(--ff-serif);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+  .nav-links {
+    display: flex; gap: 0.3rem;
+    list-style: none;
+  }
+  .nav-links a {
+    display: block;
+    padding: 0.25rem 0.65rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--muted);
+    border-radius: 3px;
+    transition: color var(--trans), background var(--trans);
+    text-transform: uppercase;
+  }
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--gold); background: rgba(184,151,58,0.1); }
+  .nav-progress {
+    position: absolute; bottom: -1px; left: 0;
+    height: 2px; background: var(--gold);
+    transition: width 0.15s;
+  }
+
+  /* ── SECTIONS BASE ───────────────────────────────────────────── */
+  section {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 7rem 2rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.4rem;
+    font-family: var(--ff-sans);
+    font-weight: 600;
+  }
+  h1, h2 {
+    font-family: var(--ff-serif);
+    font-weight: bold;
+    line-height: 1.18;
+  }
+  h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--white); }
+  p { color: #A8A090; font-size: 1rem; }
+
+  /* ── DIVIDER ─────────────────────────────────────────────────── */
+  .rule {
+    width: 100%;
+    height: 1px;
+    background: var(--rule);
+    margin: 3rem 0;
+  }
+
+  /* ── § 1  TITLE ──────────────────────────────────────────────── */
+  #title {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 2rem 2rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .title-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 2rem;
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+  }
+  .title-eyebrow span { opacity: 0.6; }
+  .title-eyebrow strong { color: var(--gold); opacity: 1; }
+  .title-main {
+    font-family: var(--ff-serif);
+    font-size: clamp(3rem, 9vw, 6.5rem);
+    line-height: 1.0;
+    color: var(--white);
+    font-weight: bold;
+  }
+  .title-main em { color: var(--gold); font-style: italic; }
+  .title-sub {
+    margin-top: 1.5rem;
+    font-size: 1.05rem;
+    color: var(--muted);
+    font-style: italic;
+    font-family: var(--ff-serif);
+  }
+  .title-journey {
+    margin-top: 3rem;
+    display: flex; gap: 0; flex-wrap: wrap;
+  }
+  .journey-step {
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.78rem; color: var(--muted);
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--rule);
+  }
+  .journey-step .icon { color: var(--gold); }
+  .journey-step:first-child { border-radius: 4px 0 0 4px; }
+  .journey-step:last-child  { border-radius: 0 4px 4px 0; border-left: none; }
+  .journey-step:not(:first-child):not(:last-child) { border-left: none; }
+  .title-quote {
+    margin-top: 3.5rem;
+    padding-left: 1.2rem;
+    border-left: 3px solid var(--gold);
+  }
+  .title-quote blockquote {
+    font-family: var(--ff-serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #C8C0A8;
+    line-height: 1.6;
+  }
+  .title-quote cite {
+    display: block; margin-top: 0.5rem;
+    font-size: 0.82rem; color: var(--muted);
+    font-style: normal;
+  }
+
+  /* ── § 2  OPENING / MUSIC ────────────────────────────────────── */
+  #opening { background: var(--dark); }
+  .music-card {
+    background: var(--charcoal);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    display: grid; grid-template-columns: 80px 1fr; gap: 2rem;
+    align-items: start;
+  }
+  .music-icon {
+    font-size: 3.5rem; line-height: 1;
+    color: var(--red);
+  }
+  .music-title {
+    font-family: var(--ff-serif);
+    font-size: 2rem; font-weight: bold;
+    color: var(--white);
+  }
+  .music-composer {
+    font-size: 0.9rem; color: var(--gold-lt);
+    font-style: italic; margin-top: 0.2rem;
+  }
+  .music-body {
+    margin-top: 1.2rem;
+    font-size: 0.97rem;
+    color: #A8A090;
+    line-height: 1.7;
+  }
+  .music-tag {
+    display: inline-block;
+    margin-top: 1.2rem;
+    padding: 0.3rem 0.8rem;
+    background: rgba(184,151,58,0.12);
+    border: 1px solid rgba(184,151,58,0.3);
+    border-radius: 3px;
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── § 3  POEM ───────────────────────────────────────────────── */
+  #poem { background: var(--dark); }
+  .poem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .poem-text-box {
+    background: var(--charcoal);
+    border-radius: var(--radius);
+    padding: 2rem 1.8rem;
+  }
+  .poem-title {
+    font-family: var(--ff-serif);
+    font-size: 1.25rem; font-weight: bold;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+  .poem-author {
+    font-size: 0.8rem; color: var(--muted);
+    margin-bottom: 1.4rem;
+    font-style: italic;
+  }
+  .poem-lines {
+    font-family: var(--ff-serif);
+    font-size: 0.95rem;
+    line-height: 1.95;
+    color: #D8D0C0;
+    font-style: italic;
+    white-space: pre-line;
+  }
+  .poem-stanza { margin-bottom: 1em; }
+
+  /* Language focus cards */
+  .lang-focus { display: flex; flex-direction: column; gap: 1rem; }
+  .lang-card {
+    background: var(--charcoal);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    transition: background var(--trans), border-color var(--trans);
+  }
+  .lang-card:hover { background: #323230; }
+  .lang-card.open { border-left-color: var(--red); }
+  .lang-card-head {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .lang-card-term {
+    font-size: 0.9rem; font-weight: 700;
+    color: var(--white);
+  }
+  .lang-card-toggle {
+    font-size: 1rem; color: var(--gold);
+    transition: transform var(--trans);
+    user-select: none;
+  }
+  .lang-card.open .lang-card-toggle { transform: rotate(45deg); }
+  .lang-card-body {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    font-size: 0.88rem; color: #A8A090;
+  }
+  .lang-card.open .lang-card-body {
+    max-height: 200px;
+    padding-top: 0.7rem;
+  }
+
+  /* ── § 4-7  HISTORY ──────────────────────────────────────────── */
+  #history { background: var(--dark); }
+  .history-tabs {
+    display: flex; gap: 0.4rem; flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .htab {
+    padding: 0.45rem 1.1rem;
+    font-size: 0.8rem; font-weight: 600;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--muted);
+    transition: all var(--trans);
+    letter-spacing: 0.04em;
+  }
+  .htab:hover { color: var(--gold); border-color: var(--gold); }
+  .htab.active { background: var(--red); border-color: var(--red); color: var(--white); }
+  .hpanel { display: none; animation: fadeIn 0.3s ease; }
+  .hpanel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* victim cards */
+  .victim-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .victim-card {
+    background: var(--charcoal);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+  }
+  .victim-num {
+    font-family: var(--ff-serif);
+    font-size: 1.8rem; font-weight: bold;
+    color: var(--gold);
+  }
+  .victim-label {
+    font-size: 0.85rem; font-weight: 700;
+    color: var(--white); margin-top: 0.2rem;
+  }
+  .victim-sub {
+    font-size: 0.78rem; color: var(--muted);
+    margin-top: 0.3rem; line-height: 1.4;
+  }
+  .history-caption {
+    margin-top: 1.5rem;
+    padding: 0.9rem 1.2rem;
+    background: rgba(181,56,28,0.12);
+    border-left: 3px solid var(--red);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 0.88rem; color: #C8C0A8;
+    font-style: italic;
+  }
+
+  /* Timeline */
+  .timeline { margin-top: 1.5rem; position: relative; }
+  .timeline::before {
+    content:''; position: absolute;
+    left: 72px; top: 0; bottom: 0;
+    width: 2px; background: var(--rule);
+  }
+  .tl-item {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.8rem;
+    position: relative;
+  }
+  .tl-year {
+    font-family: var(--ff-serif);
+    font-size: 0.88rem; font-weight: bold;
+    color: var(--red);
+    text-align: right;
+    padding-top: 0.1rem;
+    position: relative;
+  }
+  .tl-year::after {
+    content:''; position: absolute;
+    right: -1.25rem; top: 0.4rem;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--red);
+    border: 2px solid var(--dark);
+  }
+  .tl-body { font-size: 0.92rem; color: #A8A090; }
+  .tl-body strong { color: var(--white); display: block; margin-bottom: 0.2rem; }
+  .tl-key {
+    margin-top: 1.5rem;
+    padding: 0.9rem 1.2rem;
+    background: var(--charcoal);
+    border-radius: var(--radius);
+    font-size: 0.88rem; color: #C8C0A8;
+  }
+  .tl-key strong { color: var(--gold-lt); }
+
+  /* Language weapon cards */
+  .weapon-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .weapon-card {
+    background: var(--charcoal);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+  }
+  .weapon-word {
+    font-family: var(--ff-mono);
+    font-size: 1.05rem; font-weight: bold;
+    color: var(--gold);
+  }
+  .weapon-meaning {
+    font-size: 0.82rem; color: var(--muted);
+    font-style: italic; margin: 0.25rem 0 0.6rem;
+  }
+  .weapon-desc { font-size: 0.85rem; color: #A8A090; }
+  .why-list { margin-top: 1.5rem; }
+  .why-item {
+    display: flex; gap: 0.8rem; align-items: flex-start;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.88rem; color: #A8A090;
+  }
+  .why-item:last-child { border-bottom: none; }
+  .why-bullet {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0; margin-top: 0.5rem;
+  }
+
+  /* Justice */
+  .justice-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .justice-card {
+    background: var(--charcoal);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .justice-year {
+    background: var(--red);
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem; font-weight: bold; color: var(--white);
+  }
+  .justice-body { padding: 1rem 1.2rem; }
+  .justice-title {
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--white); margin-bottom: 0.4rem;
+  }
+  .justice-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+  /* ── § 8  CELLO RESPONSE ─────────────────────────────────────── */
+  #cello { background: var(--charcoal); }
+  .cello-card {
+    background: var(--dark);
+    border-radius: var(--radius);
+    padding: 3rem 2.5rem;
+    text-align: center;
+  }
+  .cello-icon { font-size: 4rem; color: var(--red); margin-bottom: 1rem; }
+  .cello-title {
+    font-family: var(--ff-serif);
+    font-size: 2rem; font-weight: bold;
+    color: var(--white); margin-bottom: 0.3rem;
+  }
+  .cello-composer { color: var(--gold-lt); font-style: italic; margin-bottom: 1.5rem; }
+  .cello-tagline {
+    font-family: var(--ff-serif);
+    font-size: 1.1rem; font-style: italic;
+    color: #C8C0A8; margin-bottom: 1.5rem;
+  }
+  .cello-body { font-size: 0.92rem; color: var(--muted); max-width: 560px; margin: 0 auto; line-height: 1.75; }
+  .silence-btn {
+    margin-top: 2rem;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.8rem 2rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    border-radius: 3px;
+    color: var(--gold);
+    font-size: 0.85rem; font-weight: 600;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: all var(--trans);
+  }
+  .silence-btn:hover { background: rgba(184,151,58,0.12); }
+  .silence-btn.running { border-color: var(--red); color: var(--red); }
+  #silence-timer {
+    margin-top: 1rem;
+    font-size: 2rem; font-family: var(--ff-mono);
+    color: var(--gold); display: none;
+  }
+
+  /* ── § 9  DISCUSSION ─────────────────────────────────────────── */
+  #discussion { background: var(--dark); }
+  .disc-layout {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 3rem;
+    align-items: start;
+  }
+  .questions { display: flex; flex-direction: column; gap: 1.5rem; }
+  .q-card {
+    background: var(--charcoal);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .q-header {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.2rem 1.4rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .q-num {
+    width: 28px; height: 28px;
+    background: var(--red);
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: bold; color: var(--white);
+    flex-shrink: 0;
+  }
+  .q-text {
+    flex: 1;
+    font-size: 0.95rem; color: var(--white); line-height: 1.5;
+  }
+  .q-meta {
+    font-size: 0.75rem; color: var(--red);
+    font-style: italic; margin-top: 0.3rem;
+  }
+  .q-chevron {
+    color: var(--gold); font-size: 1rem;
+    transition: transform var(--trans);
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .q-card.open .q-chevron { transform: rotate(180deg); }
+  .q-body {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s ease;
+  }
+  .q-card.open .q-body { max-height: 500px; }
+  .q-inner { padding: 0 1.4rem 1.4rem; border-top: 1px solid var(--rule); }
+  .q-inner p { font-size: 0.85rem; color: var(--muted); margin-top: 0.8rem; }
+
+  /* Response input */
+  .response-area {
+    margin-top: 1rem;
+  }
+  .response-label {
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .response-input {
+    width: 100%;
+    background: var(--dark);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    color: var(--cream);
+    font-family: var(--ff-sans);
+    font-size: 0.88rem;
+    padding: 0.75rem 1rem;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 90px;
+    transition: border-color var(--trans);
+    outline: none;
+  }
+  .response-input::placeholder { color: var(--muted); }
+  .response-input:focus { border-color: var(--gold); }
+
+  /* Phrase starters */
+  .starters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+  .starter-chip {
+    padding: 0.25rem 0.6rem;
+    background: rgba(184,151,58,0.1);
+    border: 1px solid rgba(184,151,58,0.25);
+    border-radius: 2px;
+    font-size: 0.72rem; color: var(--gold-lt);
+    cursor: pointer;
+    transition: all var(--trans);
+    font-style: italic;
+  }
+  .starter-chip:hover { background: rgba(184,151,58,0.22); }
+
+  /* submit */
+  .response-submit {
+    margin-top: 0.6rem;
+    display: flex; gap: 0.6rem; align-items: center;
+  }
+  .submit-btn {
+    padding: 0.45rem 1.1rem;
+    background: var(--red);
+    border: none; border-radius: 3px;
+    color: var(--white); font-size: 0.8rem; font-weight: 600;
+    cursor: pointer;
+    transition: background var(--trans);
+  }
+  .submit-btn:hover { background: var(--red-dk); }
+  .word-count { font-size: 0.72rem; color: var(--muted); }
+
+  /* Shared responses */
+  .responses-list { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .resp-bubble {
+    background: rgba(184,151,58,0.08);
+    border: 1px solid rgba(184,151,58,0.18);
+    border-radius: var(--radius);
+    padding: 0.7rem 0.9rem;
+    font-size: 0.83rem; color: #C8C0A8;
+    animation: fadeIn 0.3s ease;
+  }
+  .resp-bubble .resp-meta { font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem; }
+
+  /* Phrase sidebar */
+  .phrases-box {
+    background: var(--charcoal);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    position: sticky; top: 70px;
+  }
+  .phrases-title {
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .phrase-row {
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.82rem; color: #C8C0A8;
+    font-style: italic;
+    cursor: pointer;
+    transition: color var(--trans);
+  }
+  .phrase-row:last-child { border-bottom: none; }
+  .phrase-row:hover { color: var(--gold-lt); }
+  .phrases-note {
+    margin-top: 0.8rem;
+    font-size: 0.72rem; color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── § 10  CLOSING ───────────────────────────────────────────── */
+  #closing { background: var(--charcoal); }
+  .closing-music {
+    background: var(--dark);
+    border-radius: var(--radius);
+    padding: 1.8rem 2rem;
+    margin-bottom: 2.5rem;
+    display: flex; gap: 1.5rem; align-items: center;
+  }
+  .closing-music-icon { font-size: 2.5rem; color: var(--gold); }
+  .closing-music-title {
+    font-family: var(--ff-serif);
+    font-size: 1.3rem; font-weight: bold; color: var(--white);
+  }
+  .closing-music-sub { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
+  .closing-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+  }
+  .closing-block {
+    background: var(--dark);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+  .closing-block-title {
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .writing-task {
+    font-size: 0.92rem; color: #C8C0A8;
+    line-height: 1.7;
+  }
+  .writing-box {
+    margin-top: 1rem;
+    width: 100%;
+    background: var(--charcoal);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    color: var(--cream);
+    font-family: var(--ff-sans);
+    font-size: 0.88rem;
+    padding: 0.75rem 1rem;
+    resize: vertical;
+    min-height: 130px;
+    outline: none;
+    transition: border-color var(--trans);
+    line-height: 1.65;
+  }
+  .writing-box:focus { border-color: var(--gold); }
+  .writing-box::placeholder { color: var(--muted); }
+  .writing-counter { font-size: 0.72rem; color: var(--muted); margin-top: 0.4rem; text-align: right; }
+  .vocab-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .vocab-chip {
+    padding: 0.3rem 0.75rem;
+    background: rgba(184,151,58,0.1);
+    border: 1px solid rgba(184,151,58,0.28);
+    border-radius: 3px;
+    font-size: 0.8rem; color: var(--gold-lt);
+    cursor: pointer;
+    transition: all var(--trans);
+    position: relative;
+  }
+  .vocab-chip:hover { background: rgba(184,151,58,0.22); }
+  .vocab-tooltip {
+    display: none;
+    position: absolute; bottom: calc(100% + 8px); left: 50%;
+    transform: translateX(-50%);
+    background: var(--dark); border: 1px solid var(--rule);
+    border-radius: 4px; padding: 0.5rem 0.8rem;
+    font-size: 0.75rem; color: #C8C0A8;
+    white-space: nowrap; z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  }
+  .vocab-chip:hover .vocab-tooltip { display: block; }
+  .next-session {
+    margin-top: 2.5rem;
+    padding: 1.2rem 1.6rem;
+    background: var(--red);
+    border-radius: var(--radius);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .next-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.6); }
+  .next-title { font-size: 1rem; font-weight: 700; color: var(--white); margin-top: 0.2rem; }
+  .next-arrow { font-size: 1.5rem; color: rgba(255,255,255,0.6); }
+
+  /* ── FOOTER ──────────────────────────────────────────────────── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────────── */
+  @media (max-width: 700px) {
+    .poem-grid, .disc-layout, .closing-grid,
+    .weapon-grid, .justice-grid { grid-template-columns: 1fr; }
+    .victim-grid { grid-template-columns: repeat(2, 1fr); }
+    .phrases-box { display: none; }
+    nav .nav-links { display: none; }
+    .music-card { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────────────── -->
+<nav>
+  
+  <a href="index.html" style="font-size:0.72rem;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:0.35rem;letter-spacing:0.05em;transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">
+    ← All sessions
+  </a>
+  <div class="nav-brand">STRINGS OF MEMORY · SESSION 1</div>
+  <ul class="nav-links">
+    <li><a href="#title">Intro</a></li>
+    <li><a href="#opening">Music</a></li>
+    <li><a href="#poem">Poem</a></li>
+    <li><a href="#history">History</a></li>
+    <li><a href="#cello">Witness</a></li>
+    <li><a href="#discussion">Discussion</a></li>
+    <li><a href="#closing">Closing</a></li>
+  </ul>
+  <div class="nav-progress" id="nav-progress"></div>
+</nav>
+
+<!-- ── § 1  TITLE ────────────────────────────────────────────────── -->
+<section id="title">
+  <div class="title-eyebrow">
+    <strong>Theme 1 — Systematic Erasure</strong>
+    <span>Session 1 of 12</span>
+  </div>
+  <h1 class="title-main">The <em>Holocaust</em></h1>
+  <p class="title-sub">Germany &amp; Occupied Europe · 1933–1945</p>
+
+  <div class="title-journey">
+    <div class="journey-step"><span class="icon">♩</span> Opening cello</div>
+    <div class="journey-step"><span class="icon">📖</span> Poem &amp; reading</div>
+    <div class="journey-step"><span class="icon">◧</span> History</div>
+    <div class="journey-step"><span class="icon">♫</span> Cello response</div>
+    <div class="journey-step"><span class="icon">◉</span> Discussion</div>
+  </div>
+
+  <div class="title-quote">
+    <blockquote>"To forget the dead would be akin to killing them a second time."</blockquote>
+    <cite>— Elie Wiesel</cite>
+  </div>
+</section>
+
+<!-- ── § 2  OPENING ──────────────────────────────────────────────── -->
+<section id="opening">
+  <div class="section-label">♩ Opening</div>
+  <h2>Before we speak, we listen.</h2>
+  <div class="rule"></div>
+
+  <div class="music-card">
+    <div class="music-icon">♩</div>
+    <div>
+      <div class="music-title">Kol Nidrei</div>
+      <div class="music-composer">Max Bruch — arr. for solo cello</div>
+      <p class="music-body">
+        Kol Nidrei is a traditional Jewish prayer chanted on the eve of Yom Kippur — the Day of Atonement. Bruch's setting for cello transforms it into a meditation on grief, endurance, and memory. As you listen, notice what the music does that words cannot.
+      </p>
+      <span class="music-tag">Duration: approx. 8 minutes · No notes required — simply listen.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── § 3  POEM ─────────────────────────────────────────────────── -->
+<section id="poem">
+  <div class="section-label">📖 Poem &amp; Reading</div>
+  <h2>Language as witness</h2>
+  <div class="rule"></div>
+
+  <div class="poem-grid">
+    <!-- Poem text -->
+    <div class="poem-text-box">
+      <div class="poem-title">"Shema"</div>
+      <div class="poem-author">Primo Levi, 1946</div>
+      <div class="poem-lines">
+<div class="poem-stanza">You who live secure
+In your warm houses,
+Who return at evening to find
+Hot food and friendly faces:</div>
+
+<div class="poem-stanza">Consider whether this is a man,
+Who labours in the mud
+Who knows no peace
+Who fights for a crust of bread
+Who dies at a yes or a no.</div>
+
+<div class="poem-stanza">Consider whether this is a woman,
+Without hair or name
+With no more strength to remember,
+Eyes empty and womb cold
+Like a frog in winter.</div>
+      </div>
+    </div>
+
+    <!-- Language focus -->
+    <div>
+      <p style="color:var(--gold-lt); font-size:0.8rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:1rem;">Language Focus</p>
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1.2rem;">Click each item to explore how Levi uses language.</p>
+      <div class="lang-focus">
+        <div class="lang-card" onclick="toggleLang(this)">
+          <div class="lang-card-head">
+            <span class="lang-card-term">Imperative mood</span>
+            <span class="lang-card-toggle">+</span>
+          </div>
+          <div class="lang-card-body">"Consider whether this is a man" — a direct command to the reader. Levi is not suggesting; he is ordering us to look. Who is he speaking to? Why does the command form feel so powerful here?</div>
+        </div>
+        <div class="lang-card" onclick="toggleLang(this)">
+          <div class="lang-card-head">
+            <span class="lang-card-term">Dehumanisation</span>
+            <span class="lang-card-toggle">+</span>
+          </div>
+          <div class="lang-card-body">"Without hair or name" — the Holocaust stripped people of every marker of identity: names, clothes, hair, family. How does removing a name also remove a person? Can you think of other historical examples?</div>
+        </div>
+        <div class="lang-card" onclick="toggleLang(this)">
+          <div class="lang-card-head">
+            <span class="lang-card-term">Second person "you"</span>
+            <span class="lang-card-toggle">+</span>
+          </div>
+          <div class="lang-card-body">Levi addresses the reader directly — "you who live secure." This makes the comfortable reader complicit. What responsibility does this create? Does being addressed as "you" make you feel accused, invited, or something else?</div>
+        </div>
+        <div class="lang-card" onclick="toggleLang(this)">
+          <div class="lang-card-head">
+            <span class="lang-card-term">Contrast</span>
+            <span class="lang-card-toggle">+</span>
+          </div>
+          <div class="lang-card-body">"Warm houses" vs "mud" — the poem is built on contrasts. Find all the opposing images. What does the gap between the two worlds reveal? Why is the contrast technique so effective in bearing witness?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── § 4-7  HISTORY ────────────────────────────────────────────── -->
+<section id="history">
+  <div class="section-label">◧ History</div>
+  <h2>Understanding the Holocaust</h2>
+  <div class="rule"></div>
+
+  <div class="history-tabs">
+    <button class="htab active" onclick="switchTab(this, 'victims')">1 · Who were the victims?</button>
+    <button class="htab" onclick="switchTab(this, 'timeline')">2 · Timeline</button>
+    <button class="htab" onclick="switchTab(this, 'language')">3 · Language as weapon</button>
+    <button class="htab" onclick="switchTab(this, 'justice')">4 · Transitional justice</button>
+  </div>
+
+  <!-- Panel 1: Victims -->
+  <div class="hpanel active" id="tab-victims">
+    <div class="victim-grid">
+      <div class="victim-card">
+        <div class="victim-num">6 million</div>
+        <div class="victim-label">Jewish people</div>
+        <div class="victim-sub">Two-thirds of all Jews living in Europe</div>
+      </div>
+      <div class="victim-card">
+        <div class="victim-num">500,000+</div>
+        <div class="victim-label">Roma &amp; Sinti</div>
+        <div class="victim-sub">Porajmos — systematic annihilation</div>
+      </div>
+      <div class="victim-card">
+        <div class="victim-num">200,000+</div>
+        <div class="victim-label">Disabled people</div>
+        <div class="victim-sub">"Aktion T4" forced euthanasia programme</div>
+      </div>
+      <div class="victim-card">
+        <div class="victim-num">Thousands</div>
+        <div class="victim-label">LGBTQ+ people</div>
+        <div class="victim-sub">Identified by a pink triangle</div>
+      </div>
+      <div class="victim-card">
+        <div class="victim-num">Millions</div>
+        <div class="victim-label">Political prisoners</div>
+        <div class="victim-sub">Communists, trade unionists, clergy</div>
+      </div>
+      <div class="victim-card">
+        <div class="victim-num">~100,000</div>
+        <div class="victim-label">Jehovah's Witnesses</div>
+        <div class="victim-sub">Refused military service &amp; Nazi allegiance</div>
+      </div>
+    </div>
+    <div class="history-caption">
+      The Holocaust targeted identity itself — who you were born as, what you believed, who you loved.
+    </div>
+  </div>
+
+  <!-- Panel 2: Timeline -->
+  <div class="hpanel" id="tab-timeline">
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">1933</div>
+        <div class="tl-body"><strong>Hitler becomes Chancellor</strong>Nazi laws begin targeting Jews. Jews are dismissed from civil service jobs.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1935</div>
+        <div class="tl-body"><strong>Nuremberg Laws</strong>Jews stripped of citizenship. Marriage between Jews and non-Jews made illegal.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1938</div>
+        <div class="tl-body"><strong>Kristallnacht</strong>"Night of Broken Glass" — Jewish businesses, homes, and synagogues attacked across Germany and Austria.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1941</div>
+        <div class="tl-body"><strong>Mass shootings begin</strong>Einsatzgruppen mobile killing units follow the army into the Soviet Union.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1942</div>
+        <div class="tl-body"><strong>Wannsee Conference</strong>Nazi officials coordinate the "Final Solution" — systematic murder of all European Jews.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1945</div>
+        <div class="tl-body"><strong>Liberation and Nuremberg</strong>Camps are liberated by Allied forces. Nuremberg Trials begin holding perpetrators accountable.</div>
+      </div>
+    </div>
+    <div class="tl-key">
+      <strong>Key concept:</strong> Genocide is not sudden — it is built step by step through laws, language, and silence.
+      <br><br><em style="color:var(--muted)">Discussion: At which point on this timeline could ordinary people have acted differently?</em>
+    </div>
+  </div>
+
+  <!-- Panel 3: Language -->
+  <div class="hpanel" id="tab-language">
+    <div class="weapon-grid">
+      <div class="weapon-card">
+        <div class="weapon-word">Untermenschen</div>
+        <div class="weapon-meaning">"Subhumans"</div>
+        <div class="weapon-desc">Nazi term for Jews, Roma, and Slavs. A single word designed to strip entire peoples of their humanity.</div>
+      </div>
+      <div class="weapon-card">
+        <div class="weapon-word">Endlösung</div>
+        <div class="weapon-meaning">"Final Solution"</div>
+        <div class="weapon-desc">Bureaucratic language that hid mass murder behind technical terminology. The horror is invisible in the phrase.</div>
+      </div>
+      <div class="weapon-card">
+        <div class="weapon-word">Umsiedlung</div>
+        <div class="weapon-meaning">"Resettlement"</div>
+        <div class="weapon-desc">The word used for deportation to death camps. It sounds administrative. It describes murder.</div>
+      </div>
+      <div class="weapon-card">
+        <div class="weapon-word">Sonderbehandlung</div>
+        <div class="weapon-meaning">"Special treatment"</div>
+        <div class="weapon-desc">Nazi euphemism for execution. The gap between the word and its meaning is where genocide hides.</div>
+      </div>
+    </div>
+    <div class="why-list">
+      <div class="why-item"><div class="why-bullet"></div><span>Dehumanising language makes violence psychologically possible for ordinary people.</span></div>
+      <div class="why-item"><div class="why-bullet"></div><span>Euphemisms allow perpetrators to follow orders without fully confronting what they are doing.</span></div>
+      <div class="why-item"><div class="why-bullet"></div><span>When language is corrupted, people lose the tools they need to object or resist.</span></div>
+      <div class="why-item"><div class="why-bullet"></div><span>This is why precise, honest language is a form of moral resistance.</span></div>
+    </div>
+  </div>
+
+  <!-- Panel 4: Justice -->
+  <div class="hpanel" id="tab-justice">
+    <div class="justice-grid">
+      <div class="justice-card">
+        <div class="justice-year">1945–46</div>
+        <div class="justice-body">
+          <div class="justice-title">Nuremberg Trials</div>
+          <div class="justice-desc">First international tribunal to hold individuals — not just states — accountable for war crimes and crimes against humanity. A landmark precedent in international law.</div>
+        </div>
+      </div>
+      <div class="justice-card">
+        <div class="justice-year">1948</div>
+        <div class="justice-body">
+          <div class="justice-title">UN Genocide Convention</div>
+          <div class="justice-desc">The Holocaust directly led to the first international treaty defining and criminalising genocide. Raphael Lemkin, a Polish-Jewish lawyer, coined the word "genocide."</div>
+        </div>
+      </div>
+      <div class="justice-card">
+        <div class="justice-year">1952</div>
+        <div class="justice-body">
+          <div class="justice-title">German Reparations</div>
+          <div class="justice-desc">West Germany agreed to pay reparations to Israel and to individual survivors — acknowledging financial responsibility alongside criminal accountability.</div>
+        </div>
+      </div>
+      <div class="justice-card">
+        <div class="justice-year">Ongoing</div>
+        <div class="justice-body">
+          <div class="justice-title">Memory &amp; Education</div>
+          <div class="justice-desc">Germany requires Holocaust education by law. Yad Vashem in Jerusalem preserves 4.8 million names. Memory is treated as a civic duty.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── § 8  CELLO RESPONSE ───────────────────────────────────────── -->
+<section id="cello">
+  <div class="section-label">♫ Cello Response</div>
+  <h2>A moment of witness</h2>
+  <div class="rule"></div>
+
+  <div class="cello-card">
+    <div class="cello-icon">♫</div>
+    <div class="cello-title">Theme from Schindler's List</div>
+    <div class="cello-composer">John Williams — arr. for solo cello</div>
+    <p class="cello-tagline">A moment of witness.</p>
+    <p class="cello-body">
+      Written for the 1993 film about Oskar Schindler, a German industrialist who saved over 1,000 Jewish lives during the Holocaust. The solo violin in the original recording — here played on cello — represents a single voice, a single life, against the silence of millions.
+    </p>
+    <br>
+    <button class="silence-btn" id="silence-btn" onclick="startSilence()">
+      ◎ &nbsp; Begin 60 seconds of silence
+    </button>
+    <div id="silence-timer">0:60</div>
+    <p id="silence-done" style="display:none;font-size:0.9rem;color:var(--gold-lt);margin-top:1rem;font-style:italic;">
+      The silence is over. Carry what you felt into the discussion.
+    </p>
+  </div>
+</section>
+
+<!-- ── § 9  DISCUSSION ───────────────────────────────────────────── -->
+<section id="discussion">
+  <div class="section-label">◉ Discussion</div>
+  <h2>Questions for discussion</h2>
+  <div class="rule"></div>
+
+  <div class="disc-layout">
+    <div class="questions">
+
+      <!-- Q1 -->
+      <div class="q-card" id="qcard-1">
+        <div class="q-header" onclick="toggleQ(1)">
+          <div class="q-num">1</div>
+          <div>
+            <div class="q-text">Elie Wiesel said: "The opposite of love is not hate — it is indifference." What did he mean? Do you agree?</div>
+            <div class="q-meta">Small groups · 5 min</div>
+          </div>
+          <div class="q-chevron">▾</div>
+        </div>
+        <div class="q-body">
+          <div class="q-inner">
+            <p>Think about a time when people stayed silent during an injustice. Was their silence a form of indifference? Could it be considered a choice?</p>
+            <div class="response-area">
+              <div class="response-label">Share your response</div>
+              <div class="starters">
+                <span class="starter-chip" onclick="insertStarter(1, this)">I was struck by…</span>
+                <span class="starter-chip" onclick="insertStarter(1, this)">I agree because…</span>
+                <span class="starter-chip" onclick="insertStarter(1, this)">I disagree because…</span>
+                <span class="starter-chip" onclick="insertStarter(1, this)">I find it difficult to understand…</span>
+              </div>
+              <textarea class="response-input" id="resp-1" placeholder="Type your thoughts here…" oninput="countWords('resp-1','wc-1')"></textarea>
+              <div class="response-submit">
+                <button class="submit-btn" onclick="submitResp(1)">Share with class</button>
+                <span class="word-count" id="wc-1">0 words</span>
+              </div>
+            </div>
+            <div class="responses-list" id="rlist-1"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="q-card" id="qcard-2">
+        <div class="q-header" onclick="toggleQ(2)">
+          <div class="q-num">2</div>
+          <div>
+            <div class="q-text">The Holocaust was carried out with laws, paperwork, and ordinary people following orders. What does this tell us about how genocide begins?</div>
+            <div class="q-meta">Small groups · 5 min</div>
+          </div>
+          <div class="q-chevron">▾</div>
+        </div>
+        <div class="q-body">
+          <div class="q-inner">
+            <p>The historian Hannah Arendt called this "the banality of evil" — ordinary people doing terrible things by simply following instructions. How does bureaucracy make violence easier to carry out?</p>
+            <div class="response-area">
+              <div class="response-label">Share your response</div>
+              <div class="starters">
+                <span class="starter-chip" onclick="insertStarter(2, this)">I was struck by…</span>
+                <span class="starter-chip" onclick="insertStarter(2, this)">This connects to my country because…</span>
+                <span class="starter-chip" onclick="insertStarter(2, this)">The word that stays with me is…</span>
+                <span class="starter-chip" onclick="insertStarter(2, this)">Could you say more about…</span>
+              </div>
+              <textarea class="response-input" id="resp-2" placeholder="Type your thoughts here…" oninput="countWords('resp-2','wc-2')"></textarea>
+              <div class="response-submit">
+                <button class="submit-btn" onclick="submitResp(2)">Share with class</button>
+                <span class="word-count" id="wc-2">0 words</span>
+              </div>
+            </div>
+            <div class="responses-list" id="rlist-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="q-card" id="qcard-3">
+        <div class="q-header" onclick="toggleQ(3)">
+          <div class="q-num">3</div>
+          <div>
+            <div class="q-text">The Nuremberg Trials were the first time leaders faced justice for crimes against humanity. Was justice possible? What would justice even look like?</div>
+            <div class="q-meta">Whole group · 8 min</div>
+          </div>
+          <div class="q-chevron">▾</div>
+        </div>
+        <div class="q-body">
+          <div class="q-inner">
+            <p>Can a court ever provide real justice for six million deaths? What would the survivors have needed? Is punishment the same as justice?</p>
+            <div class="response-area">
+              <div class="response-label">Share your response</div>
+              <div class="starters">
+                <span class="starter-chip" onclick="insertStarter(3, this)">I agree because…</span>
+                <span class="starter-chip" onclick="insertStarter(3, this)">I disagree because…</span>
+                <span class="starter-chip" onclick="insertStarter(3, this)">I find it difficult to understand…</span>
+                <span class="starter-chip" onclick="insertStarter(3, this)">This connects to…</span>
+              </div>
+              <textarea class="response-input" id="resp-3" placeholder="Type your thoughts here…" oninput="countWords('resp-3','wc-3')"></textarea>
+              <div class="response-submit">
+                <button class="submit-btn" onclick="submitResp(3)">Share with class</button>
+                <span class="word-count" id="wc-3">0 words</span>
+              </div>
+            </div>
+            <div class="responses-list" id="rlist-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q-card" id="qcard-4">
+        <div class="q-header" onclick="toggleQ(4)">
+          <div class="q-num">4</div>
+          <div>
+            <div class="q-text">Language was used to dehumanise. Can you think of examples — past or present — where language has been used to make violence seem acceptable?</div>
+            <div class="q-meta">Whole group · 7 min</div>
+          </div>
+          <div class="q-chevron">▾</div>
+        </div>
+        <div class="q-body">
+          <div class="q-inner">
+            <p>Think about language used in politics, media, or history — in your own country or elsewhere. When does strong language cross into dehumanisation?</p>
+            <div class="response-area">
+              <div class="response-label">Share your response</div>
+              <div class="starters">
+                <span class="starter-chip" onclick="insertStarter(4, this)">I was struck by…</span>
+                <span class="starter-chip" onclick="insertStarter(4, this)">The word that stays with me is…</span>
+                <span class="starter-chip" onclick="insertStarter(4, this)">I find it difficult to understand…</span>
+                <span class="starter-chip" onclick="insertStarter(4, this)">Could you say more about…</span>
+              </div>
+              <textarea class="response-input" id="resp-4" placeholder="Type your thoughts here…" oninput="countWords('resp-4','wc-4')"></textarea>
+              <div class="response-submit">
+                <button class="submit-btn" onclick="submitResp(4)">Share with class</button>
+                <span class="word-count" id="wc-4">0 words</span>
+              </div>
+            </div>
+            <div class="responses-list" id="rlist-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phrase sidebar -->
+    <aside>
+      <div class="phrases-box">
+        <div class="phrases-title">Useful phrases</div>
+        <div class="phrase-row">"I was struck by…"</div>
+        <div class="phrase-row">"I find it difficult to understand…"</div>
+        <div class="phrase-row">"This connects to my country because…"</div>
+        <div class="phrase-row">"The word that stays with me is…"</div>
+        <div class="phrase-row">"I agree / disagree because…"</div>
+        <div class="phrase-row">"Could you say more about…?"</div>
+        <p class="phrases-note">Click any phrase to copy it, then paste it into your response.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ── § 10  CLOSING ──────────────────────────────────────────────── -->
+<section id="closing">
+  <div class="section-label">Closing</div>
+  <h2>Before we leave</h2>
+  <div class="rule"></div>
+
+  <div class="closing-music">
+    <div class="closing-music-icon">♫</div>
+    <div>
+      <div class="closing-music-title">Bach Cello Suite No. 5 — Sarabande</div>
+      <div class="closing-music-sub">Written 200 years before the Holocaust. It sounds like mourning. Beauty persists. Memory persists.</div>
+    </div>
+  </div>
+
+  <div class="closing-grid">
+    <div class="closing-block">
+      <div class="closing-block-title">Writing task for next session</div>
+      <p class="writing-task">Write one paragraph (100–150 words) about a time you witnessed injustice — large or small — and chose to speak, or chose to stay silent. What did you decide? Why?</p>
+      <textarea class="writing-box" id="writing-draft" placeholder="Begin writing here… your draft is saved in your browser." oninput="updateWritingCount()"></textarea>
+      <div class="writing-counter" id="writing-counter">0 / 150 words</div>
+    </div>
+
+    <div class="closing-block">
+      <div class="closing-block-title">Vocabulary to review</div>
+      <div class="vocab-chips">
+        <div class="vocab-chip">genocide
+          <div class="vocab-tooltip">The deliberate killing of a large group of people, especially those of a particular ethnic group or nation.</div>
+        </div>
+        <div class="vocab-chip">persecution
+          <div class="vocab-tooltip">Hostility and ill-treatment, especially because of race, religion, or political beliefs.</div>
+        </div>
+        <div class="vocab-chip">dehumanisation
+          <div class="vocab-tooltip">The process of depriving a person or group of human qualities, making them seem less than human.</div>
+        </div>
+        <div class="vocab-chip">testimony
+          <div class="vocab-tooltip">A formal statement, especially one given in a court; a first-hand account of an experience.</div>
+        </div>
+        <div class="vocab-chip">accountability
+          <div class="vocab-tooltip">The fact or condition of being responsible for your actions and being willing to accept consequences.</div>
+        </div>
+        <div class="vocab-chip">reparations
+          <div class="vocab-tooltip">Compensation paid by a nation for damage or injury during a war or atrocity.</div>
+        </div>
+        <div class="vocab-chip">euphemism
+          <div class="vocab-tooltip">A mild or indirect word used in place of one that might seem harsh or blunt — often used to hide the truth.</div>
+        </div>
+        <div class="vocab-chip">atrocity
+          <div class="vocab-tooltip">An extremely wicked or cruel act, especially one involving physical violence or injury.</div>
+        </div>
+      </div>
+      <p style="font-size:0.78rem;color:var(--muted);margin-top:1rem;font-style:italic;">Hover over each word to see its definition.</p>
+    </div>
+  </div>
+
+  <div class="next-session">
+    <div>
+      <div class="next-label">Coming next</div>
+      <div class="next-title">Session 2 — The Armenian Genocide · Ottoman Empire, 1915–1917</div>
+    </div>
+    <div class="next-arrow">→</div>
+  </div>
+</section>
+
+<footer>
+  Strings of Memory · Session 1 of 12 · Theme 1: Systematic Erasure
+</footer>
+
+<script>
+  /* ── NAV PROGRESS + ACTIVE LINK ──────────────────────────────── */
+  const sections = document.querySelectorAll('section, footer');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const progress = document.getElementById('nav-progress');
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = Math.min(100, (scrollTop / docH) * 100) + '%';
+
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+
+  /* ── LANG CARDS ──────────────────────────────────────────────── */
+  function toggleLang(card) {
+    card.classList.toggle('open');
+  }
+
+  /* ── HISTORY TABS ────────────────────────────────────────────── */
+  function switchTab(btn, panelId) {
+    document.querySelectorAll('.htab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.hpanel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + panelId).classList.add('active');
+  }
+
+  /* ── SILENCE TIMER ───────────────────────────────────────────── */
+  let silenceInterval;
+  function startSilence() {
+    const btn = document.getElementById('silence-btn');
+    const timer = document.getElementById('silence-timer');
+    const done = document.getElementById('silence-done');
+    if (btn.classList.contains('running')) return;
+
+    btn.classList.add('running');
+    btn.textContent = '… silence …';
+    timer.style.display = 'block';
+    done.style.display = 'none';
+
+    let secs = 60;
+    timer.textContent = '1:00';
+    silenceInterval = setInterval(() => {
+      secs--;
+      const m = Math.floor(secs / 60);
+      const s = secs % 60;
+      timer.textContent = m + ':' + String(s).padStart(2, '0');
+      if (secs <= 0) {
+        clearInterval(silenceInterval);
+        timer.style.display = 'none';
+        done.style.display = 'block';
+        btn.style.display = 'none';
+      }
+    }, 1000);
+  }
+
+  /* ── DISCUSSION Q TOGGLE ─────────────────────────────────────── */
+  function toggleQ(n) {
+    const card = document.getElementById('qcard-' + n);
+    card.classList.toggle('open');
+  }
+
+  /* ── PHRASE STARTERS ─────────────────────────────────────────── */
+  function insertStarter(qNum, chip) {
+    const ta = document.getElementById('resp-' + qNum);
+    const phrase = chip.textContent;
+    if (ta.value && !ta.value.endsWith(' ')) ta.value += ' ';
+    ta.value += phrase;
+    ta.focus();
+    countWords('resp-' + qNum, 'wc-' + qNum);
+  }
+
+  // Phrase sidebar — copy to clipboard on click
+  document.querySelectorAll('.phrase-row').forEach(row => {
+    row.addEventListener('click', () => {
+      navigator.clipboard.writeText(row.textContent.trim()).catch(() => {});
+      const orig = row.style.color;
+      row.style.color = 'var(--gold)';
+      setTimeout(() => row.style.color = orig, 800);
+    });
+  });
+
+  /* ── WORD COUNT ──────────────────────────────────────────────── */
+  function countWords(inputId, counterId) {
+    const val = document.getElementById(inputId).value.trim();
+    const count = val ? val.split(/\s+/).length : 0;
+    document.getElementById(counterId).textContent = count + (count === 1 ? ' word' : ' words');
+  }
+
+  /* ── SUBMIT RESPONSES ────────────────────────────────────────── */
+  // Simple local session storage — no server needed
+  function submitResp(n) {
+    const ta = document.getElementById('resp-' + n);
+    const text = ta.value.trim();
+    if (!text) return;
+
+    const list = document.getElementById('rlist-' + n);
+    const bubble = document.createElement('div');
+    bubble.className = 'resp-bubble';
+    bubble.innerHTML = text + '<div class="resp-meta">Shared just now</div>';
+    list.appendChild(bubble);
+
+    ta.value = '';
+    countWords('resp-' + n, 'wc-' + n);
+    bubble.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* ── WRITING DRAFT ───────────────────────────────────────────── */
+  const writingBox = document.getElementById('writing-draft');
+  // Restore draft from localStorage
+  writingBox.value = localStorage.getItem('resonance-s1-draft') || '';
+  updateWritingCount();
+
+  writingBox.addEventListener('input', () => {
+    localStorage.setItem('resonance-s1-draft', writingBox.value);
+    updateWritingCount();
+  });
+
+  function updateWritingCount() {
+    const val = writingBox.value.trim();
+    const count = val ? val.split(/\s+/).length : 0;
+    const counter = document.getElementById('writing-counter');
+    counter.textContent = count + ' / 150 words';
+    counter.style.color = count > 150 ? 'var(--red)' : count >= 100 ? 'var(--sage)' : 'var(--muted)';
+  }
+</script>
+</body>
+</html>

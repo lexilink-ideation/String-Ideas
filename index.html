@@ -94,6 +94,16 @@ body{font-family:'Inter','Noto Sans SC',system-ui,sans-serif;background:#0F0E0C;
 .sc-question{font-size:11px;color:var(--paper3);opacity:.55;line-height:1.55;margin-top:.2rem;border-left:2px solid var(--rule);padding-left:.6rem;font-style:italic}
 .sc-soon{display:inline-block;font-size:10px;letter-spacing:.07em;text-transform:uppercase;background:rgba(232,224,212,.05);color:var(--paper3);padding:.18rem .55rem;border-radius:20px;border:1px solid var(--rule);margin-top:.3rem;opacity:.6}
 
+/* Live session card */
+.session-card.sc-live{position:relative;cursor:pointer;transition:background .2s,box-shadow .2s}
+.session-card.sc-live:hover{background:#211f1c;box-shadow:0 0 0 1px rgba(201,147,10,.35) inset}
+.sc-live-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;background:rgba(153,60,29,.18);color:#F0997B;padding:.22rem .65rem;border-radius:20px;border:1px solid rgba(153,60,29,.4);margin-top:.3rem}
+.sc-live-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:#F0997B;animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.sc-enter-btn{display:flex;align-items:center;justify-content:space-between;margin-top:.85rem;padding:.6rem .9rem;background:#993C1D;border-radius:8px;text-decoration:none;color:#fff;font-size:12px;font-weight:600;letter-spacing:.04em;transition:background .18s,transform .15s}
+.sc-enter-btn:hover{background:#7a2e15;transform:translateX(2px)}
+.sc-enter-btn span{opacity:.7;font-size:14px}
+
 /* Theme left-border colours */
 .t1 .session-card{border-left:2px solid #993C1D}
 .t2 .session-card{border-left:2px solid #534AB7}
@@ -229,7 +239,7 @@ body{font-family:'Inter','Noto Sans SC',system-ui,sans-serif;background:#0F0E0C;
       <span class="theme-desc">How genocide is built through law, language, and the silence of bystanders.</span>
     </div>
     <div class="session-row">
-      <div class="session-card">
+      <div class="session-card sc-live" onclick="window.location='session1_holocaust.html'">
         <div class="sc-num">Session 1</div>
         <div class="sc-title">The Holocaust</div>
         <div class="sc-period">Germany &amp; Occupied Europe · 1933–1945</div>
@@ -238,7 +248,8 @@ body{font-family:'Inter','Noto Sans SC',system-ui,sans-serif;background:#0F0E0C;
         <div class="sc-book"><span class="sc-book-icon">◧</span>Night — Elie Wiesel &nbsp;·&nbsp; "Shema" — Primo Levi</div>
         <div class="sc-vocab">genocide · testimony · euphemism · accountability</div>
         <div class="sc-question">"The opposite of love is not hate — it is indifference." — Wiesel</div>
-        <div class="sc-soon">Coming soon</div>
+        <div class="sc-live-badge">Now available</div>
+        <a class="sc-enter-btn" href="session1_holocaust.html" onclick="event.stopPropagation()">Enter session <span>→</span></a>
       </div>
       <div class="session-card">
         <div class="sc-num">Session 2</div>
@@ -459,7 +470,7 @@ body{font-family:'Inter','Noto Sans SC',system-ui,sans-serif;background:#0F0E0C;
   <strong>Strings of Memory · Resonance</strong><br>
   Language · Humanity · Cello<br>
   <span class="footer-cn">LLI IELTS Studio 语意云雅思工作室 · 琴弦上的语言系列讲座</span><br>
-  <span style="opacity:.4">Sessions will be published here as they become available</span>
+  <span style="opacity:.4">Session 1 is now available · Further sessions will be published as they become available</span>
 </div>
 
 </body>
